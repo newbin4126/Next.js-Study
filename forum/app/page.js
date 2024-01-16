@@ -1,14 +1,10 @@
-import { connectDB } from "@/util/database"
-import { MongoClient } from "mongodb"
+import { connectDB } from "@/util/database.js";
+import { MongoClient } from "mongodb";
 
 export default async function Home() {
+  const db = (await connectDB).db("forum");
+  let result = await db.collection("post").find().toArray();
+  console.log(result);
 
-  const client = await connectDB
-  const db = client.db("forum")
-  await db.collection('post').find().toArray()
-  console.log(result)
-
-  return (
-    <div>안녕</div>
-  )
+  return <div>안녕</div>;
 }
